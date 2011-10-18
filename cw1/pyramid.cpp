@@ -49,7 +49,7 @@ void renderScene (void) {
                  scale * 0.0f, scale * -.5f, scale * 1.0f,
                  scale * 0.5f, scale * 1.5f, scale * 0.5f,
                  0.0f, 1.0f, 1.0f);
-   // przedni trójk¹t, który mo¿na zakomentowaæ, aby zobaczyæ inne œcianki
+   // przedni trÃ³jkÄ…t, ktÃ³ry moÅ¼na zakomentowaÄ‡, aby zobaczyÄ‡ inne Å›cianki
    drawTriangle (scale * 0.0f, scale * -.5f, scale * 1.0f,
                  scale * 2.0f, scale * -.5f, scale * 1.0f,
                  scale * .5f, scale * 1.5f, scale * .5f,
