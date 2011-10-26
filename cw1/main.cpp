@@ -34,11 +34,6 @@ void renderScene (void) {
       glVertex3f(scale * 1.0f, scale * 0.0f, scale * 0.0f);
       glVertex3f(scale * .5f, scale * 1.5f, scale * .5f);
       //--
-      glVertexAttrib3f(GLT_ATTRIBUTE_COLOR, 1.0f, 1.0f, 0.0f);
-      glVertex3f(scale * -1.0f, scale * 0.0f, scale * 0.0f);
-      glVertex3f(scale * 1.0f, scale * 0.0f, scale * 0.0f);
-      glVertex3f(scale * .5f, scale * 1.5f, scale * .5f);
-      //--
       glVertexAttrib3f(GLT_ATTRIBUTE_COLOR, 1.0f, 0.0f, 1.0f);
       glVertex3f(scale * 1.0f, scale * 0.0f, scale * 0.0f);
       glVertex3f(scale * 2.0f, scale * -.5f, scale * 1.0f);
