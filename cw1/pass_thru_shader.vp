@@ -2,11 +2,9 @@
 
 in vec4 vVertex;
 in vec4 vColor;
-
-
 out vec4 vVaryingColor;
 
 void main() {
-    vVaryingColor = vColor;
-    gl_Position = vVertex;
+   vVaryingColor = vColor;
+   gl_Position = vVertex;
 }
