@@ -95,7 +95,7 @@ GLuint shader_light,
        mv_matrix_location,
        v_matrix_location,
        normal_matrix_location,
-       ambient_component_intensity_location,
+       intensity_ambient_component_location,
        light_0_position_location,
        light_0_intensity_diffuse_location,
        light_0_intensity_specular_location,
@@ -109,7 +109,7 @@ GLMatrixStack p_stack;
 GLMatrixStack mv_stack;
 GLFrame camera_frame;
 GLFrustum view_frustum;
-float location[] = {0.0f, 0.0f, 0.0f}, target[] = {0.0f, 0.0f, 0.0f}, up_dir[] = {0.0f, 0.0f, 1.0f}, camera_matrix[16], ambient_component_intensity[] = {0.2f, 0.2f, 0.2f};
+float location[] = {0.0f, 0.0f, 0.0f}, target[] = {0.0f, 0.0f, 0.0f}, up_dir[] = {0.0f, 0.0f, 1.0f}, camera_matrix[16], intensity_ambient_component[] = {0.2f, 0.2f, 0.2f};
 CStopWatch timer;
 PointLight light_0;
 Material material_0;
@@ -144,7 +144,7 @@ void setup_rc() {
    mv_matrix_location = glGetUniformLocation(shader_light, "mv_matrix");
    v_matrix_location = glGetUniformLocation(shader_light, "v_matrix");
    normal_matrix_location = glGetUniformLocation(shader_light, "normal_matrix");
-   ambient_component_intensity_location = glGetUniformLocation(shader_light, "ambient_component_intensity");
+   intensity_ambient_component_location = glGetUniformLocation(shader_light, "intensity_ambient_component");
    light_0_position_location = glGetUniformLocation(shader_light, "light_0.position");
    light_0_intensity_diffuse_location = glGetUniformLocation(shader_light, "light_0.intensity_diffuse");
    light_0_intensity_specular_location = glGetUniformLocation(shader_light, "light_0.intensity_specular");
@@ -324,7 +324,7 @@ void render_scene(void) {
    location[2] = 5.0f;
    light_0.position[0] = 10.0f * cos(-angle);
    light_0.position[1] = 10.0f * sin(-angle);
-   light_0.position[2] = 4.0f;
+   light_0.position[2] = 3.0f;
    look_at(camera_frame, location, target, up_dir);
    camera_frame.GetCameraMatrix(camera_matrix);
    p_stack.LoadMatrix(view_frustum.GetProjectionMatrix());
@@ -334,14 +334,15 @@ void render_scene(void) {
    glUseProgram(shader_color);
    mv_stack.PushMatrix();
    mv_stack.Translate(light_0.position[0], light_0.position[1], light_0.position[2]);
-   mv_stack.Scale(0.5f, 0.5f, 0.5f);
+   mv_stack.Scale(0.25f, 0.25f, 0.25f);
    glUniformMatrix4fv(mvp_matrix_location_shader_color, 1, GL_FALSE, geometry_pipeline.GetModelViewProjectionMatrix());
    draw_light();
    mv_stack.PopMatrix();
    //--
    glUseProgram(shader_light);
+   glUniformMatrix3fv(normal_matrix_location, 1, GL_FALSE, geometry_pipeline.GetNormalMatrix());
    glUniformMatrix4fv(v_matrix_location, 1, GL_FALSE, camera_matrix);
-   glUniform3fv(ambient_component_intensity_location, 1, ambient_component_intensity);
+   glUniform3fv(intensity_ambient_component_location, 1, intensity_ambient_component);
    glUniform3fv(light_0_position_location, 1, light_0.position);
    glUniform3fv(light_0_intensity_diffuse_location, 1, light_0.intensity_diffuse);
    glUniform3fv(light_0_intensity_specular_location, 1, light_0.intensity_specular);
@@ -353,7 +354,6 @@ void render_scene(void) {
    //--
    glUniformMatrix4fv(mvp_matrix_location, 1, GL_FALSE, geometry_pipeline.GetModelViewProjectionMatrix());
    glUniformMatrix4fv(mv_matrix_location, 1, GL_FALSE, geometry_pipeline.GetModelViewMatrix());
-   glUniformMatrix3fv(normal_matrix_location, 1, GL_FALSE, geometry_pipeline.GetNormalMatrix());
    draw_grid();
    draw_floor();
    //--
@@ -363,7 +363,6 @@ void render_scene(void) {
          mv_stack.Translate((float)i, (float)j, 0.0f);
          glUniformMatrix4fv(mvp_matrix_location, 1, GL_FALSE, geometry_pipeline.GetModelViewProjectionMatrix());
          glUniformMatrix4fv(mv_matrix_location, 1, GL_FALSE, geometry_pipeline.GetModelViewMatrix());
-         glUniformMatrix3fv(normal_matrix_location, 1, GL_FALSE, geometry_pipeline.GetNormalMatrix());
          draw_pyramid();
          mv_stack.PopMatrix();
       }
@@ -373,7 +372,6 @@ void render_scene(void) {
    mv_stack.Translate(0.0f, 0.0f, 4.0f);
    glUniformMatrix4fv(mvp_matrix_location, 1, GL_FALSE, geometry_pipeline.GetModelViewProjectionMatrix());
    glUniformMatrix4fv(mv_matrix_location, 1, GL_FALSE, geometry_pipeline.GetModelViewMatrix());
-   glUniformMatrix3fv(normal_matrix_location, 1, GL_FALSE, geometry_pipeline.GetNormalMatrix());
    draw_icosahedron(20, vertices_icosahedron, faces_icosahedron);
    mv_stack.PopMatrix();
    //--
@@ -381,7 +379,6 @@ void render_scene(void) {
    mv_stack.Translate(-5.0f, 0.0f, 4.0f);
    glUniformMatrix4fv(mvp_matrix_location, 1, GL_FALSE, geometry_pipeline.GetModelViewProjectionMatrix());
    glUniformMatrix4fv(mv_matrix_location, 1, GL_FALSE, geometry_pipeline.GetModelViewMatrix());
-   glUniformMatrix3fv(normal_matrix_location, 1, GL_FALSE, geometry_pipeline.GetNormalMatrix());
    draw_icosahedron_smooth(20, vertices_icosahedron, faces_icosahedron);
    mv_stack.PopMatrix();
    //--
