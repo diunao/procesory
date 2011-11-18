@@ -38,7 +38,7 @@ void main() {
    //-- AMBIENT
    fragment_color = material_0.ka * vec4(intensity_ambient_component, 1);
    //-- DIFFUSE
-   float attenuation = 1.0f / (light_0.attenuation[0] + light_0.attenuation[1] * distance_to_light + light_0.attenuation[2] * pow(distance_to_light, 2));
+   float attenuation = 1.0 / (light_0.attenuation[0] + light_0.attenuation[1] * distance_to_light + light_0.attenuation[2] * pow(distance_to_light, 2));
    float NdotL = dot(vector_to_light, vertex_normal_eye_space);
    // max() --> the diffuse component cannot be negative
    fragment_color += material_0.kd * vertex_color * max(NdotL, 0.0) * vec4(light_0.intensity_diffuse, 1) * attenuation;
