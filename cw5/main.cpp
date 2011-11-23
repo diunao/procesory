@@ -87,8 +87,6 @@ GLuint faces_buffer;
 
 void load_vertices(const char * filename, std::vector<float> & out_vertices) {
    FILE * fvertices = fopen(filename, "r");
-   if(NULL == fvertices)
-	   printf("BLad1\n");
    char line[120];
    float x, y, z, magnitude;
    while (fgets(line, 120, fvertices) != NULL) {
@@ -106,12 +104,10 @@ void load_vertices(const char * filename, std::vector<float> & out_vertices) {
 
 void load_faces(const char * filename, std::vector<unsigned int> & out_faces) {
    FILE * ffaces = fopen(filename, "r");
-   if(NULL == ffaces)
-	   printf("BLad2\n");
    char line[120];
    int i, j, k;
    while (fgets(line, 120, ffaces) != NULL) {
-	  sscanf(line, "%u %u %u", &i, &j, &k);
+      sscanf(line, "%u %u %u", &i, &j, &k);
       out_faces.push_back(i - 1);
       out_faces.push_back(j - 1);
       out_faces.push_back(k - 1);
