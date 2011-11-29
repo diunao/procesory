@@ -272,7 +272,7 @@ int main(int argc, char* argv[]) {
    glutInit(&argc, argv);
    glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA | GLUT_DEPTH | GLUT_STENCIL);
    glutInitWindowSize(600, 600);
-   glutCreateWindow("cw5");
+   glutCreateWindow("cw6");
    glutReshapeFunc(change_size);
    glutDisplayFunc(render_scene);
    GLenum err = glewInit();
