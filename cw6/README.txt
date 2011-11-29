@@ -1,0 +1,1 @@
+Z uwagi na znaczny rozmiar modelu smoka skompresowałem pliki zawierające wierzchołki, normalne oraz ściany. Program wymaga, aby pliki dragon_faces.dat oraz dragon_vertices.dat znajdowały się w folderze razem z plikiem wykonywalnym.
