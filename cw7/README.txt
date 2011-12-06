@@ -1,0 +1,1 @@
+Pliki z archiwum tyrannosaurus_rex.rar nale¿y wypakowaæ do folderu, w którym znajduje siê plik wykonywalny.
